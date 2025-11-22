@@ -1,0 +1,1 @@
+{"version":3,"file":"main.js","sources":["../main.js"],"sourcesContent":["import './style.css'\r\nimport Alpine from 'alpinejs'\r\n\r\nwindow.Alpine = Alpine\r\n\r\nAlpine.start()\r\n"],"names":["Alpine"],"mappings":"+BAGA,OAAO,OAASA,EAEhBA,EAAO,MAAK"}

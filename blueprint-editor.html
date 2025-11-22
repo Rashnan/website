@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blueprint Visual Editor - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+  <script type="module" crossorigin src="./blueprint.js"></script>
+  <link rel="modulepreload" crossorigin href="./module.esm.js">
+  <link rel="stylesheet" crossorigin href="./module.css">
+</head>
+
+<body class="bg-gray-900 text-white font-sans antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Navbar -->
+  <nav x-data="{ mobileMenuOpen: false }" class="fixed w-full z-50 top-0 transition-all duration-300"
+    :class="{ 'bg-gray-900/80 backdrop-blur-md border-b border-white/10': true }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <div class="flex-shrink-0">
+          <a href="index.html"
+            class="text-2xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+            PORTFOLIO
+          </a>
+        </div>
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-8">
+            <a href="index.html#home"
+              class="hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+            <a href="index.html#projects"
+              class="hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
+            <a href="index.html#about"
+              class="hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+            <a href="mailto:rashnan.m.s@gmail.com"
+              class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full text-sm font-medium transition-all">Contact</a>
+          </div>
+        </div>
+        <div class="-mr-2 flex md:hidden">
+          <button @click="mobileMenuOpen = !mobileMenuOpen" type="button"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+            <span class="sr-only">Open main menu</span>
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false"
+      class="md:hidden bg-gray-900 border-b border-white/10">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="index.html#home" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+        <a href="index.html#projects"
+          class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+        <a href="index.html#about"
+          class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+        <a href="mailto:rashnan.m.s@gmail.com"
+          class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Project Header -->
+  <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <!-- Background blobs -->
+    <div
+      class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob">
+    </div>
+    <div
+      class="absolute top-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob animation-delay-2000">
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+      <h1 class="text-5xl md:text-7xl font-display font-bold tracking-tight mb-6">
+        Blueprint <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">Visual
+          Editor</span>
+      </h1>
+      <p class="mt-4 text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+        Create code visually with drag-and-drop nodes. Connect components to generate clean, executable code in multiple languages.
+      </p>
+      <div class="flex justify-center gap-4">
+        <a href="#editor" class="btn-primary">Try Editor</a>
+        <a href="index.html#projects"
+          class="px-6 py-3 border border-white/20 hover:bg-white/10 rounded-full font-semibold transition-all">Back to
+          Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editor Section -->
+  <section id="editor" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">Visual Programming Environment</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Drag nodes from the library, connect them to create logic flows, and generate clean code automatically.
+        </p>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="glass-panel p-4 mb-6">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div class="flex gap-2">
+            <button id="clearCanvas" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors">
+              🗑️ Clear Canvas
+            </button>
+            <button id="autoLayout" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors">
+              📐 Auto Layout
+            </button>
+            <button id="selectMode" class="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-sm font-medium transition-colors">
+              ⬚ Select Mode
+            </button>
+            <button id="createFunction" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-sm font-medium transition-colors">
+              📦 Create Function
+            </button>
+            <button id="generateCode" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm font-medium transition-colors">
+              ⚡ Generate Code
+            </button>
+          </div>
+          <div class="flex gap-2">
+            <select id="languageSelect" class="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm">
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="cpp">C++</option>
+              <option value="rust">Rust</option>
+            </select>
+            <button id="exportCode" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-sm font-medium transition-colors">
+              📥 Export
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Editor Area -->
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Node Library -->
+        <div class="lg:col-span-1">
+          <div class="glass-panel p-6">
+            <h3 class="text-lg font-bold mb-4">Node Library</h3>
+            
+            <!-- Node Categories -->
+            <div class="space-y-4">
+              <!-- Input/Output -->
+              <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Input/Output</h4>
+                <div class="space-y-2">
+                  <div class="node-template" data-type="input" draggable="true">
+                    <div class="bg-blue-600/20 border border-blue-500/30 rounded-lg p-3 cursor-move hover:bg-blue-600/30 transition-colors">
+                      <div class="flex items-center gap-2">
+                        <span class="text-blue-400">📥</span>
+                        <span class="text-sm">Input</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="node-template" data-type="output" draggable="true">
+                    <div class="bg-green-600/20 border border-green-500/30 rounded-lg p-3 cursor-move hover:bg-green-600/30 transition-colors">
+                      <div class="flex items-center gap-2">
+                        <span class="text-green-400">📤</span>
+                        <span class="text-sm">Output</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Logic -->
+              <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Logic</h4>
+                <div class="space-y-2">
+                  <div class="node-template" data-type="if" draggable="true">
+                    <div class="bg-purple-600/20 border border-purple-500/30 rounded-lg p-3 cursor-move hover:bg-purple-600/30 transition-colors">
+                      <div class="flex items-center gap-2">
+                        <span class="text-purple-400">🔀</span>
+                        <span class="text-sm">If Statement</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="node-template" data-type="loop" draggable="true">
+                    <div class="bg-orange-600/20 border border-orange-500/30 rounded-lg p-3 cursor-move hover:bg-orange-600/30 transition-colors">
+                      <div class="flex items-center gap-2">
+                        <span class="text-orange-400">🔄</span>
+                        <span class="text-sm">Loop</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Operations -->
+              <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Operations</h4>
+                <div class="space-y-2">
+                  <div class="node-template" data-type="add" draggable="true">
+                    <div class="bg-cyan-600/20 border border-cyan-500/30 rounded-lg p-3 cursor-move hover:bg-cyan-600/30 transition-colors">
+                      <div class="flex items-center gap-2">
+                        <span class="text-cyan-400">➕</span>
+                        <span class="text-sm">Add</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="node-template" data-type="multiply" draggable="true">
+                    <div class="bg-pink-600/20 border border-pink-500/30 rounded-lg p-3 cursor-move hover:bg-pink-600/30 transition-colors">
+                      <div class="flex items-center gap-2">
+                        <span class="text-pink-400">✖️</span>
+                        <span class="text-sm">Multiply</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="node-template" data-type="compare" draggable="true">
+                    <div class="bg-yellow-600/20 border border-yellow-500/30 rounded-lg p-3 cursor-move hover:bg-yellow-600/30 transition-colors">
+                      <div class="flex items-center gap-2">
+                        <span class="text-yellow-400">⚖️</span>
+                        <span class="text-sm">Compare</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Variables -->
+              <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Variables</h4>
+                <div class="space-y-2">
+                  <div class="node-template" data-type="variable" draggable="true">
+                    <div class="bg-indigo-600/20 border border-indigo-500/30 rounded-lg p-3 cursor-move hover:bg-indigo-600/30 transition-colors">
+                      <div class="flex items-center gap-2">
+                        <span class="text-indigo-400">📦</span>
+                        <span class="text-sm">Variable</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="node-template" data-type="assign" draggable="true">
+                    <div class="bg-teal-600/20 border border-teal-500/30 rounded-lg p-3 cursor-move hover:bg-teal-600/30 transition-colors">
+                      <div class="flex items-center gap-2">
+                        <span class="text-teal-400">=</span>
+                        <span class="text-sm">Assign</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Custom Components -->
+              <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Components</h4>
+                <div id="customComponents" class="space-y-2">
+                  <div class="text-gray-500 text-sm">No custom components yet</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canvas Area -->
+        <div class="lg:col-span-3">
+          <div class="glass-panel p-6 h-full">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold">Canvas</h3>
+              <div class="flex items-center gap-2 text-sm text-gray-400">
+                <span>Nodes:</span>
+                <span id="nodeCount" class="text-blue-400">0</span>
+                <span class="ml-4">Connections:</span>
+                <span id="connectionCount" class="text-green-400">0</span>
+              </div>
+            </div>
+            
+            <!-- Canvas -->
+            <div id="canvas" class="relative bg-gray-800/50 border-2 border-dashed border-gray-700 rounded-lg h-96 overflow-hidden">
+              <div class="absolute inset-0 flex items-center justify-center text-gray-500 pointer-events-none" id="canvasPlaceholder">
+                <div class="text-center">
+                  <div class="text-4xl mb-2">🎨</div>
+                  <p>Drag nodes here to start building your blueprint</p>
+                </div>
+              </div>
+              
+              <!-- Selection Box -->
+              <div id="selectionBox" class="absolute border-2 border-blue-400 bg-blue-400/20 pointer-events-none hidden" style="z-index: 5;"></div>
+              
+              <!-- SVG for connections -->
+              <svg id="connectionSvg" class="absolute inset-0 pointer-events-none" style="z-index: 1;">
+                <defs>
+                  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#60a5fa" />
+                  </marker>
+                </defs>
+              </svg>
+              
+              <!-- Temporary connection line -->
+              <svg id="tempConnectionSvg" class="absolute inset-0 pointer-events-none" style="z-index: 1000;">
+                <line id="tempLine" stroke="#60a5fa" stroke-width="2" stroke-dasharray="5,5" style="display: none;"></line>
+              </svg>
+              
+              <!-- Nodes and groups will be added here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code Output -->
+      <div class="mt-8">
+        <div class="glass-panel p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold">Generated Code</h3>
+            <div class="flex gap-2">
+              <button id="copyCode" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm transition-colors">
+                📋 Copy
+              </button>
+              <button id="downloadCode" class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm transition-colors">
+                💾 Download
+              </button>
+            </div>
+          </div>
+          <div id="codeOutput" class="bg-gray-900 border border-gray-700 rounded-lg p-4 font-mono text-sm text-gray-300 h-64 overflow-y-auto">
+            <div class="text-gray-500">// Generated code will appear here...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Details -->
+  <section class="py-24 relative bg-gray-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">Technical Implementation</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Advanced visual programming system with real-time code generation and multi-language support.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-panel p-6 text-center">
+          <div class="text-3xl mb-4">🎯</div>
+          <h3 class="text-lg font-bold mb-2">Drag & Drop</h3>
+          <p class="text-gray-400 text-sm">Intuitive node-based visual programming interface</p>
+        </div>
+        <div class="glass-panel p-6 text-center">
+          <div class="text-3xl mb-4">🔗</div>
+          <h3 class="text-lg font-bold mb-2">Smart Connections</h3>
+          <p class="text-gray-400 text-sm">Visual node connections with automatic validation</p>
+        </div>
+        <div class="glass-panel p-6 text-center">
+          <div class="text-3xl mb-4">⚡</div>
+          <h3 class="text-lg font-bold mb-2">Code Generation</h3>
+          <p class="text-gray-400 text-sm">Real-time compilation to multiple programming languages</p>
+        </div>
+        <div class="glass-panel p-6 text-center">
+          <div class="text-3xl mb-4">📥</div>
+          <h3 class="text-lg font-bold mb-2">Export Support</h3>
+          <p class="text-gray-400 text-sm">Download generated code as ready-to-use files</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 border-t border-white/10 text-center text-gray-500 text-sm">
+    <p>&copy; 2024 Portfolio. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
