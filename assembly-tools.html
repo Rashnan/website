@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rust Assembly Tools - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/lint/lint.min.css">
+  
+  <style>
+    .CodeMirror {
+      height: 384px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+    }
+    
+    .CodeMirror-gutters {
+      background-color: #272822;
+      border-right: 1px solid #3e3d32;
+      width: 60px;
+    }
+    
+    .CodeMirror-linenumber {
+      color: #75715e;
+      padding: 0 10px 0 0;
+      min-width: 30px;
+      text-align: right;
+    }
+    
+    .CodeMirror-selected {
+      background: #49483e;
+    }
+    
+    .CodeMirror-cursor {
+      border-left: 2px solid #f8f8f0;
+    }
+    
+    .CodeMirror-lines {
+      padding: 8px 0;
+    }
+    
+    .CodeMirror pre.CodeMirror-line,
+    .CodeMirror pre.CodeMirror-line-like {
+      padding-left: 15px;
+      padding-right: 8px;
+    }
+    
+    .CodeMirror-scroll {
+      margin-left: 60px;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Navbar -->
+  <nav x-data="{ mobileMenuOpen: false }" class="fixed w-full z-50 top-0 transition-all duration-300"
+    :class="{ 'bg-gray-900/80 backdrop-blur-md border-b border-white/10': true }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <div class="flex-shrink-0">
+          <a href="index.html"
+            class="text-2xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-600">
+            PORTFOLIO
+          </a>
+        </div>
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-8">
+            <a href="index.html#home"
+              class="hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+            <a href="index.html#projects"
+              class="hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
+            <a href="index.html#about"
+              class="hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+        <a href="mailto:rashnan.m.s@gmail.com"
+          class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full text-sm font-medium transition-all">Contact</a>
+          </div>
+        </div>
+        <div class="-mr-2 flex md:hidden">
+          <button @click="mobileMenuOpen = !mobileMenuOpen" type="button"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+            <span class="sr-only">Open main menu</span>
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false"
+      class="md:hidden bg-gray-900 border-b border-white/10">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="index.html#home" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+        <a href="index.html#projects"
+          class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+        <a href="index.html#about"
+          class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+        <a href="index.html#contact"
+          class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Project Header -->
+  <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <!-- Background blobs -->
+    <div
+      class="absolute top-0 left-1/4 w-96 h-96 bg-orange-600/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob">
+    </div>
+    <div
+      class="absolute top-0 right-1/4 w-96 h-96 bg-red-600/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob animation-delay-2000">
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+      <h1 class="text-5xl md:text-7xl font-display font-bold tracking-tight mb-6">
+        Rust <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-red-500 to-yellow-500">Assembly
+          Tools</span>
+      </h1>
+      <p class="mt-4 text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+        Interactive x86 compiler and ARM assembler built in Rust with step-by-step debugging and real-time register visualization.
+      </p>
+      <div class="flex justify-center gap-4">
+        <a href="#tools" class="btn-primary">Try Tools</a>
+        <a href="index.html#projects"
+          class="px-6 py-3 border border-white/20 hover:bg-white/10 rounded-full font-semibold transition-all">Back to
+          Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section id="tools" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">Assembly Development Tools</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Write, compile, and debug assembly code with our interactive web-based tools powered by Rust and WebAssembly.
+        </p>
+      </div>
+
+      <!-- Tool Selection -->
+      <div class="flex justify-center mb-8">
+        <div class="inline-flex rounded-lg bg-gray-800 p-1">
+          <button id="x86Compiler" class="tool-btn px-4 py-2 rounded-md text-sm font-medium transition-all bg-orange-600 text-white">
+            x86 Compiler
+          </button>
+          <button id="armAssembler" class="tool-btn px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white">
+            ARM Assembler
+          </button>
+        </div>
+      </div>
+
+        <!-- x86 Compiler -->
+        <div id="x86Content" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Code Editor -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="glass-panel p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold">x86 Assembly Code</h3>
+                <div class="flex gap-2">
+                  <button id="x86CompileBtn" class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm transition-colors">
+                    ⚡ Compile
+                  </button>
+                  <button id="x86RunBtn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm transition-colors">
+                    ▶️ Run
+                  </button>
+                </div>
+              </div>
+              <textarea id="x86Editor" class="w-full h-96 bg-gray-900 border border-gray-700 rounded-lg p-4 font-mono text-sm text-gray-300 focus:border-orange-500 focus:outline-none" placeholder="; Enter x86 assembly code here
+section .text
+    global _start
+
+_start:
+    mov eax, 42      ; Load value into EAX
+    add eax, 8       ; Add 8 to EAX
+    mov ebx, eax     ; Copy result to EBX
+    int 0x80         ; System call"></textarea>
+            </div>
+
+            <!-- Output Console -->
+            <div class="glass-panel p-6">
+              <h3 class="text-lg font-bold mb-4">Output Console</h3>
+              <div id="x86Output" class="bg-gray-900 border border-gray-700 rounded-lg p-4 font-mono text-sm text-gray-300 h-48 overflow-y-auto">
+                <div class="text-gray-500">Ready to compile and run...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Registers Panel -->
+          <div class="space-y-4">
+            <!-- CPU Registers -->
+            <div class="glass-panel p-6">
+              <h3 class="text-lg font-bold mb-4">CPU Registers</h3>
+              <div class="space-y-2 font-mono text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-400">EAX:</span>
+                  <span id="regEAX" class="text-orange-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">EBX:</span>
+                  <span id="regEBX" class="text-orange-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">ECX:</span>
+                  <span id="regECX" class="text-orange-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">EDX:</span>
+                  <span id="regEDX" class="text-orange-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">ESP:</span>
+                  <span id="regESP" class="text-blue-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">EBP:</span>
+                  <span id="regEBP" class="text-blue-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">ESI:</span>
+                  <span id="regESI" class="text-green-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">EDI:</span>
+                  <span id="regEDI" class="text-green-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">EIP:</span>
+                  <span id="regEIP" class="text-purple-400 font-bold">0x00000000</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Execution Info -->
+            <div class="glass-panel p-6">
+              <h3 class="text-lg font-bold mb-4">Execution Info</h3>
+              <div class="space-y-3">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-400">Status:</span>
+                  <span id="x86Status" class="text-green-400">Ready</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-400">Instructions:</span>
+                  <span id="x86InstructionCount" class="text-blue-400">0</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-400">Errors:</span>
+                  <span id="x86ErrorCount" class="text-red-400">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory View -->
+            <div class="glass-panel p-6">
+              <h3 class="text-lg font-bold mb-4">Memory View</h3>
+              <div id="memoryView" class="bg-gray-900 border border-gray-700 rounded-lg p-3 font-mono text-xs text-gray-300 h-32 overflow-y-auto">
+                <div class="text-gray-500">Memory will appear here during execution...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ARM Assembler -->
+        <div id="armContent" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Code Editor -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="glass-panel p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold">ARM Assembly Code</h3>
+                <div class="flex gap-2">
+                  <button id="armAssembleBtn" class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm transition-colors">
+                    ⚡ Assemble
+                  </button>
+                  <button id="armRunBtn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm transition-colors">
+                    ▶️ Run
+                  </button>
+                </div>
+              </div>
+              <textarea id="armEditor" class="w-full h-96 bg-gray-900 border border-gray-700 rounded-lg p-4 font-mono text-sm text-gray-300 focus:border-orange-500 focus:outline-none" placeholder="@ Enter ARM assembly code here
+.section .text
+.global _start
+
+_start:
+    mov r0, #42        @ Load immediate value
+    add r1, r0, #8     @ Add 8 to r0, store in r1
+    mov r2, r1         @ Copy result to r2
+    swi 0x0            @ Software interrupt"></textarea>
+            </div>
+
+            <!-- Output Console -->
+            <div class="glass-panel p-6">
+              <h3 class="text-lg font-bold mb-4">Output Console</h3>
+              <div id="armOutput" class="bg-gray-900 border border-gray-700 rounded-lg p-4 font-mono text-sm text-gray-300 h-48 overflow-y-auto">
+                <div class="text-gray-500">Ready to assemble and run...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Registers Panel -->
+          <div class="space-y-4">
+            <!-- ARM Registers -->
+            <div class="glass-panel p-6">
+              <h3 class="text-lg font-bold mb-4">ARM Registers</h3>
+              <div class="space-y-2 font-mono text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-400">R0:</span>
+                  <span id="armR0" class="text-orange-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">R1:</span>
+                  <span id="armR1" class="text-orange-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">R2:</span>
+                  <span id="armR2" class="text-orange-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">R3:</span>
+                  <span id="armR3" class="text-orange-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">R4:</span>
+                  <span id="armR4" class="text-blue-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">R5:</span>
+                  <span id="armR5" class="text-blue-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">R6:</span>
+                  <span id="armR6" class="text-blue-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">R7:</span>
+                  <span id="armR7" class="text-blue-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">SP:</span>
+                  <span id="armSP" class="text-green-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">LR:</span>
+                  <span id="armLR" class="text-green-400">0x00000000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">PC:</span>
+                  <span id="armPC" class="text-purple-400 font-bold">0x00000000</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Execution Info -->
+            <div class="glass-panel p-6">
+              <h3 class="text-lg font-bold mb-4">Execution Info</h3>
+              <div class="space-y-3">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-400">Status:</span>
+                  <span id="armStatus" class="text-green-400">Ready</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-400">Instructions:</span>
+                  <span id="armInstructionCount" class="text-blue-400">0</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-400">Errors:</span>
+                  <span id="armErrorCount" class="text-red-400">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Instruction Info -->
+            <div class="glass-panel p-6">
+              <h3 class="text-lg font-bold mb-4">Last Instruction</h3>
+              <div id="currentInstruction" class="bg-gray-900 border border-gray-700 rounded-lg p-3 font-mono text-sm text-gray-300">
+                <div class="text-gray-500">No instruction executed yet...</div>
+              </div>
+            </div>
+
+            <!-- ARM Templates -->
+            <div class="glass-panel p-6">
+              <h3 class="text-lg font-bold mb-4">ARM Templates</h3>
+              <div class="space-y-2">
+                <button class="arm-template w-full px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors text-left" data-template="basic">
+                  📝 Basic Operations
+                </button>
+                <button class="arm-template w-full px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors text-left" data-template="loop">
+                  🔄 Loop Example
+                </button>
+                <button class="arm-template w-full px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors text-left" data-template="fibonacci">
+                  🔢 Fibonacci
+                </button>
+                <button class="arm-template w-full px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors text-left" data-template="memory">
+                  💾 Memory Operations
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- Technical Details -->
+  <section class="py-24 relative bg-gray-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">Technical Implementation</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Built with Rust and compiled to WebAssembly for high-performance assembly processing in the browser.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-panel p-6 text-center">
+          <div class="text-3xl mb-4">🦀</div>
+          <h3 class="text-lg font-bold mb-2">Rust Backend</h3>
+          <p class="text-gray-400 text-sm">High-performance assembly parsing and compilation</p>
+        </div>
+        <div class="glass-panel p-6 text-center">
+          <div class="text-3xl mb-4">🚀</div>
+          <h3 class="text-lg font-bold mb-2">WebAssembly</h3>
+          <p class="text-gray-400 text-sm">Native-speed execution in the browser</p>
+        </div>
+        <div class="glass-panel p-6 text-center">
+          <div class="text-3xl mb-4">🔍</div>
+          <h3 class="text-lg font-bold mb-2">Step Debugger</h3>
+          <p class="text-gray-400 text-sm">Line-by-line execution with breakpoints</p>
+        </div>
+        <div class="glass-panel p-6 text-center">
+          <div class="text-3xl mb-4">📊</div>
+          <h3 class="text-lg font-bold mb-2">Real-time Registers</h3>
+          <p class="text-gray-400 text-sm">Live register and memory visualization</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 border-t border-white/10 text-center text-gray-500 text-sm">
+    <p>&copy; 2024 Portfolio. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/gas/gas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/matchbrackets.min.js"></script>
+  <script type="module" src="assembly-tools.js"></script>
+</body>
+
+</html>
